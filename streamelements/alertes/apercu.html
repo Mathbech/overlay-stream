@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aperçu des alertes</title>
+  <link rel="stylesheet" href="widget.css">
+  <style>
+    /* Fond imitant un jeu, uniquement pour l'aperçu */
+    body { background: linear-gradient(#8fb8de, #dfe9f1 55%, #7d8a63 55.5%, #4f5b40); min-height: 100vh; }
+  </style>
+</head>
+<body>
+  <!-- Contenu de widget.html -->
+  <div id="alertes"></div>
+  <script src="widget.js"></script>
+  <script>
+    // Simule StreamElements : chargement du widget puis un événement de chaque type.
+    // ?type=follow (ou sub, resub, gift, gift1, raid, cheer, tip) pour n'en jouer qu'un.
+    window.dispatchEvent(new CustomEvent("onWidgetLoad", { detail: { fieldData: {} } }));
+    const EVENEMENTS = {
+      follow: { listener: "follower-latest", event: { name: "Routier_du_71" } },
+      sub: { listener: "subscriber-latest", event: { name: "Mamie_Tracteur", amount: 1 } },
+      resub: { listener: "subscriber-latest", event: { name: "LaFermeDeJean", amount: 6, message: "6 mois déjà, toujours aussi chill" } },
+      gift: { listener: "subscriber-latest", event: { name: "Kevin", sender: "Kevin", amount: 5, bulkGifted: true } },
+      gift1: { listener: "subscriber-latest", event: { name: "dev_du_dimanche", sender: "Kevin", gifted: true } },
+      raid: { listener: "raid-latest", event: { name: "UnAutreStreamer", amount: 42 } },
+      cheer: { listener: "cheer-latest", event: { name: "Routier_du_71", amount: 500, message: "pour le péage" } },
+      tip: { listener: "tip-latest", event: { name: "Mamie_Tracteur", amount: 5, message: "un café pour le chauffeur" } },
+    };
+    const choix = new URLSearchParams(location.search).get("type");
+    const liste = EVENEMENTS[choix] ? [EVENEMENTS[choix]] : Object.values(EVENEMENTS);
+    liste.forEach(function (e) {
+      window.dispatchEvent(new CustomEvent("onEventReceived", { detail: e }));
+    });
+  </script>
+</body>
+</html>

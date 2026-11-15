@@ -1,0 +1,241 @@
+/* Overlay en jeu : plaque discrète sur fond transparent. */
+.jeu {
+  --marge: 32px;
+}
+
+.ancre {
+  position: absolute;
+  display: flex;
+}
+
+.pos-haut-gauche .ancre { top: var(--marge); left: var(--marge); }
+.pos-haut-centre .ancre { top: var(--marge); left: 0; right: 0; justify-content: center; }
+.pos-haut-droite .ancre { top: var(--marge); right: var(--marge); }
+.pos-bas-gauche .ancre { bottom: var(--marge); left: var(--marge); }
+.pos-bas-centre .ancre { bottom: var(--marge); left: 0; right: 0; justify-content: center; }
+.pos-bas-droite .ancre { bottom: var(--marge); right: var(--marge); }
+
+.plaque {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 56px;
+  padding: 0 22px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: rgba(13, 15, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-size: 21px;
+  white-space: nowrap;
+}
+
+.sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.jeu-marque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.jeu-point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.jeu-programme {
+  font-weight: 600;
+}
+
+.jeu-chrono {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.jeu-chrono svg {
+  width: 22px;
+  height: 22px;
+}
+
+.anneau-piste,
+.anneau-arc {
+  fill: none;
+  stroke-width: 3;
+}
+
+.anneau-piste {
+  stroke: rgba(255, 255, 255, 0.15);
+}
+
+.anneau-arc {
+  stroke: var(--accent);
+}
+
+.jeu-chrono-valeur {
+  font-family: var(--font-mono);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.jeu-reseau {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  color: var(--text);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.jeu-reseau.cache {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.jeu-reseau svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Followers */
+.jeu-followers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.jeu-followers svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.jeu-followers-valeur {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Chat : cadre délimité (en-tête + liste), les messages les plus récents en bas */
+.chat {
+  position: absolute;
+  width: 440px;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: rgba(13, 15, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.chat-haut-gauche,
+.chat-milieu-gauche,
+.chat-bas-gauche { left: var(--marge); }
+
+.chat-haut-droite,
+.chat-milieu-droite,
+.chat-bas-droite { right: var(--marge); }
+
+.chat-haut-gauche,
+.chat-haut-droite { top: calc(var(--marge) + 88px); } /* sous le bandeau s'il est en haut */
+
+.chat-milieu-gauche,
+.chat-milieu-droite { top: 50%; margin-top: -230px; }
+
+.chat-bas-gauche,
+.chat-bas-droite { bottom: var(--marge); }
+
+.chat-entete {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.chat-point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.chat-liste {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 12px 18px 14px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%);
+}
+
+.chat-vide {
+  align-self: center;
+  margin: auto 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.msg {
+  flex: none;
+  font-size: 20px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  animation: msg-entree 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 0.6s;
+}
+
+.msg.sortie {
+  opacity: 0;
+}
+
+@keyframes msg-entree {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+.msg-auteur {
+  margin-right: 8px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.msg.action .msg-texte {
+  font-style: italic;
+}
+
+.msg-emote {
+  height: 28px;
+  margin: -4px 1px;
+  vertical-align: middle;
+}

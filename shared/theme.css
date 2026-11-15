@@ -1,0 +1,59 @@
+/* Thème commun : couleurs, typos, taille du canevas OBS (1920x1080). */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap");
+
+:root {
+  --accent: #F5A524;            /* remplacé par couleurAccent du config.js */
+  --bg: #0D0F12;
+  --surface: #161A20;
+  --line: rgba(255, 255, 255, 0.09);
+  --text: #F2F4F7;
+  --muted: #8A93A0;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, ui-monospace, monospace;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Canevas 1920x1080, mis à l'échelle de la fenêtre par core.js */
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+}
+
+/* Overlay d'alertes StreamElements intégré (voir core.js), au-dessus de tout */
+.alertes-se {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  width: 1920px;
+  height: 1080px;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Apparition en fondu, décalée via la variable --d */
+.entree {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: entree 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes entree {
+  to { opacity: 1; transform: none; }
+}

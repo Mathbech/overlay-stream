@@ -1,0 +1,227 @@
+/* Thème « cabine » : un grand compteur à aiguille (le tableau de bord), en partie hors cadre,
+   et un panneau en verre posé devant (le pare-brise). Composition asymétrique, sans badge
+   ni libellé en capitales. Chargé par-dessus ecran.css. */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&display=swap");
+
+:root {
+  --font-chiffres: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+.grille,
+.etiquette,
+.minuteur,
+.horloge {
+  display: none;
+}
+
+.halo {
+  width: 1200px;
+  height: 1200px;
+  right: -340px;
+  top: -30px;
+  opacity: 0.06;
+  animation: none;
+}
+
+.grain {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* En-tête discret */
+.marque {
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.carre {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.horloge {
+  font-size: 26px;
+}
+
+/* Le compteur, grand et coupé par le bord droit */
+.jauge {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  width: 1300px;
+  height: 1300px;
+  right: -230px;
+  top: -150px;
+}
+
+.jauge svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.jauge-piste,
+.jauge-arc {
+  fill: none;
+  stroke-width: 5;
+}
+
+.jauge-piste {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.jauge-arc {
+  stroke: var(--accent);
+  transition: stroke-dasharray 1s linear;
+}
+
+.jauge-trait {
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1.2;
+}
+
+.jauge-trait.majeur {
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 2.5;
+}
+
+.jauge-aiguille {
+  display: inline;
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+  transition: transform 1s linear;
+}
+
+/* Panne : l'aiguille tremble au point mort, comme un moteur qui cale.
+   On anime la tige (et non le groupe, dont la rotation est posée par le script). */
+.ecran-panne .jauge-aiguille-tige {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+  animation: cale 0.16s ease-in-out 1.5s infinite alternate;
+}
+
+@keyframes cale {
+  from { transform: rotate(-1.5deg); }
+  to { transform: rotate(2deg); }
+}
+
+.jauge-aiguille-tige {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.jauge-aiguille-axe {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+
+/* Lecture numérique dans la partie basse du compteur */
+.jauge-texte {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 72%; /* sous la course de l'aiguille */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jauge-valeur,
+.jauge-unite {
+  display: none;
+}
+
+.jauge-label {
+  display: block;
+  font-size: 26px;
+  color: var(--muted);
+}
+
+.jauge-detail {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-chiffres);
+  font-size: 150px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Le pare-brise : panneau en verre devant le compteur */
+.centre {
+  position: absolute;
+  left: 128px;
+  bottom: 190px;
+  min-width: 920px;
+  padding: 56px 64px 60px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+.titre {
+  font-size: 128px;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.info {
+  margin-top: 36px;
+  font-size: 30px;
+}
+
+/* Pied : réseaux en simple ligne de texte */
+.haut {
+  flex: none;
+}
+
+.bas {
+  margin-top: auto;
+  gap: 40px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.reseau {
+  font-size: 24px;
+}
+
+.reseau svg {
+  width: 26px;
+  height: 26px;
+  color: var(--muted);
+}
+
+/* Overlay en jeu : bandeau et cadre de chat en verre */
+.plaque,
+.chat {
+  border-radius: 16px;
+  background: rgba(20, 21, 26, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.jeu-marque {
+  font-weight: 400;
+}
+
+.chat {
+  border-color: rgba(255, 255, 255, 0.22); /* cadre bien visible */
+}

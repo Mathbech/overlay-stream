@@ -1,0 +1,87 @@
+/* Écran Discussion : s'appuie sur ecran.css (fond, en-tête, pied) et jeu.css (cadre de chat). */
+.disc-corps {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 96px;
+  margin: 48px 0;
+}
+
+.disc-infos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ecran-discussion .titre {
+  font-size: 120px;
+}
+
+.disc-stats {
+  display: flex;
+  gap: 64px;
+  margin-top: 64px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-valeur {
+  font-family: var(--font-chiffres, var(--font-mono));
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  color: var(--muted);
+}
+
+.stat-label svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+/* Grand cadre de chat (jeu.css le positionne en absolu : ici il prend sa place dans la ligne) */
+.chat.chat-grand {
+  position: relative;
+  flex: none;
+  width: 760px;
+  height: auto;
+}
+
+.chat-grand .chat-entete {
+  padding: 16px 24px;
+  font-size: 20px;
+}
+
+.chat-grand .chat-liste {
+  gap: 10px;
+  padding: 16px 24px 20px;
+}
+
+.chat-grand .msg {
+  font-size: 26px;
+}
+
+.chat-grand .msg-emote {
+  height: 34px;
+}
+
+.chat-grand .chat-vide {
+  font-size: 22px;
+}

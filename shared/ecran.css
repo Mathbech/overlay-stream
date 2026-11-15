@@ -1,0 +1,213 @@
+/* Écrans plein cadre : début, pause, fin. */
+.ecran {
+  box-sizing: border-box;
+  padding: 88px 128px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* Décor : grille de points qui dérive lentement + halo coloré */
+.grille {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.10) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 75% at 72% 50%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 65% 75% at 72% 50%, #000 0%, transparent 75%);
+  animation: derive 24s linear infinite;
+}
+
+@keyframes derive {
+  to { background-position: 64px 64px; }
+}
+
+.halo {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  right: -260px;
+  top: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, var(--accent) 0%, transparent 100%);
+  opacity: 0.10;
+  animation: respire 10s ease-in-out infinite alternate;
+}
+
+@keyframes respire {
+  from { transform: scale(0.9); }
+  to { transform: scale(1.1); }
+}
+
+/* Éléments propres à certains thèmes : masqués par défaut */
+.blobs,
+.grain,
+.coins,
+.jauge,
+.jauge-aiguille,
+.jauge-label,
+.jauge-detail {
+  display: none;
+}
+
+.haut,
+.centre,
+.bas {
+  position: relative;
+  z-index: 1;
+}
+
+/* En-tête */
+.haut {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.marque {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0.02em;
+}
+
+.carre {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.horloge {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contenu principal */
+.centre {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.etiquette {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.point {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.25; }
+}
+
+.titre {
+  margin: 0;
+  font-size: 132px;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.titre .accent {
+  color: var(--accent);
+}
+
+.info {
+  margin: 40px 0 0;
+  font-size: 34px;
+  color: var(--muted);
+}
+
+.info strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Minuteur */
+.minuteur {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.minuteur-label {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.minuteur-valeur {
+  font-family: var(--font-mono);
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.minuteur-valeur.fini {
+  color: var(--accent);
+}
+
+.barre {
+  width: 560px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.barre span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 1s linear;
+}
+
+/* Pied : réseaux */
+.bas {
+  display: flex;
+  gap: 56px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+
+.reseau {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  color: var(--muted);
+}
+
+.reseau svg {
+  width: 30px;
+  height: 30px;
+  color: var(--text);
+}

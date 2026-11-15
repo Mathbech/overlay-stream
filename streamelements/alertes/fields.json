@@ -1,0 +1,43 @@
+{
+  "accent": { "type": "colorpicker", "label": "Couleur d'accent", "value": "#F5A524", "group": "Apparence" },
+  "position": {
+    "type": "dropdown",
+    "label": "Position",
+    "value": "haut-centre",
+    "options": { "haut-centre": "En haut au centre", "centre": "Au centre", "bas-centre": "En bas au centre" },
+    "group": "Apparence"
+  },
+  "decalage": { "type": "number", "label": "Distance au bord (px)", "value": 120, "min": 0, "max": 1000, "group": "Apparence" },
+  "duree": { "type": "number", "label": "Durée d'affichage (secondes)", "value": 7, "min": 3, "max": 60, "group": "Apparence" },
+  "afficherMessage": { "type": "checkbox", "label": "Afficher le message du viewer (sub, bits, don)", "value": true, "group": "Apparence" },
+
+  "son": { "type": "sound-input", "label": "Son", "value": "", "group": "Son" },
+  "volume": { "type": "slider", "label": "Volume", "value": 50, "min": 0, "max": 100, "step": 1, "group": "Son" },
+
+  "followActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Follow" },
+  "followTitre": { "type": "text", "label": "Titre", "value": "Nouveau passager", "group": "Follow" },
+  "followTexte": { "type": "text", "label": "Texte ({nom})", "value": "{nom} monte à bord", "group": "Follow" },
+
+  "subActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Abonnement" },
+  "subTitre": { "type": "text", "label": "Titre", "value": "Abonnement", "group": "Abonnement" },
+  "subTexte": { "type": "text", "label": "Nouvel abonné ({nom})", "value": "{nom} s’abonne, merci !", "group": "Abonnement" },
+  "resubTexte": { "type": "text", "label": "Réabonnement ({nom}, {montant} = mois)", "value": "{nom} · {montant} mois de route", "group": "Abonnement" },
+
+  "giftActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Abonnement offert" },
+  "giftTitre": { "type": "text", "label": "Titre", "value": "Abonnement offert", "group": "Abonnement offert" },
+  "giftUnTexte": { "type": "text", "label": "Un abonnement ({nom}, {cible})", "value": "{nom} offre un abonnement à {cible}", "group": "Abonnement offert" },
+  "giftTexte": { "type": "text", "label": "Plusieurs ({nom}, {montant})", "value": "{nom} offre {montant} abonnements", "group": "Abonnement offert" },
+
+  "raidActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Raid" },
+  "raidTitre": { "type": "text", "label": "Titre", "value": "Convoi en approche", "group": "Raid" },
+  "raidTexte": { "type": "text", "label": "Texte ({nom}, {montant} = viewers)", "value": "{nom} arrive avec {montant} routiers", "group": "Raid" },
+
+  "cheerActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Bits" },
+  "cheerTitre": { "type": "text", "label": "Titre", "value": "Bits", "group": "Bits" },
+  "cheerTexte": { "type": "text", "label": "Texte ({nom}, {montant})", "value": "{nom} remplit le réservoir : {montant} bits", "group": "Bits" },
+
+  "tipActif": { "type": "checkbox", "label": "Activer", "value": true, "group": "Don" },
+  "tipTitre": { "type": "text", "label": "Titre", "value": "Don", "group": "Don" },
+  "tipTexte": { "type": "text", "label": "Texte ({nom}, {montant})", "value": "{nom} offre le plein : {montant}", "group": "Don" },
+  "devise": { "type": "text", "label": "Devise", "value": "€", "group": "Don" }
+}

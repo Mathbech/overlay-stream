@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aperçu des overlays</title>
+  <style>
+    :root {
+      --bg: #0b0c0f;
+      --carte: #15171c;
+      --texte: #e8eaee;
+      --attenue: #8a93a0;
+    }
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: var(--bg);
+      color: var(--texte);
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    main { max-width: 1600px; margin: 0 auto; }
+    h1 { margin: 0 0 4px; font-size: 24px; }
+    p { margin: 0 0 32px; color: var(--attenue); }
+    h2 { margin: 40px 0 16px; font-size: 18px; text-transform: capitalize; }
+    code { color: var(--texte); }
+    .grille {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 16px;
+    }
+    figure { margin: 0; background: var(--carte); border-radius: 12px; overflow: hidden; }
+    iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+    /* Fond imitant un jeu (ciel clair + sol) pour juger la lisibilité de l'overlay en jeu */
+    iframe.fond-jeu { background: linear-gradient(#8fb8de, #dfe9f1 55%, #7d8a63 55.5%, #4f5b40); }
+    figcaption { padding: 10px 14px; font-size: 14px; color: var(--attenue); }
+    figcaption a { color: var(--texte); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Aperçu des overlays</h1>
+    <p>Tous les écrans dans tous les thèmes, avec ta <code>config.js</code>. Le thème utilisé dans OBS se choisit avec l'option <code>theme</code>.</p>
+    <div id="themes"></div>
+  </main>
+  <script>
+    const THEMES = ["cabine", "minimal", "telemetrie", "verre"];
+    const SCENES = [
+      { fichier: "debut", nom: "Début" },
+      { fichier: "pause", nom: "Pause" },
+      { fichier: "fin", nom: "Fin" },
+      { fichier: "panne", nom: "Problème technique" },
+      { fichier: "discussion", nom: "Discussion (démo)", extra: "&demo=1" },
+      { fichier: "jeu", nom: "En jeu (démo)", fond: true, extra: "&demo=1" },
+    ];
+    const conteneur = document.getElementById("themes");
+    THEMES.forEach(function (theme) {
+      const titre = document.createElement("h2");
+      titre.textContent = theme;
+      const grille = document.createElement("div");
+      grille.className = "grille";
+      SCENES.forEach(function (s) {
+        const url = "scenes/" + s.fichier + ".html?theme=" + theme + (s.extra || "");
+        const fig = document.createElement("figure");
+        const cadre = document.createElement("iframe");
+        cadre.src = url;
+        if (s.fond) cadre.className = "fond-jeu";
+        cadre.loading = "lazy";
+        cadre.title = s.nom + " — " + theme;
+        const legende = document.createElement("figcaption");
+        const lien = document.createElement("a");
+        lien.href = url;
+        lien.target = "_blank";
+        lien.textContent = s.nom;
+        legende.append(lien, " · plein écran");
+        fig.append(cadre, legende);
+        grille.append(fig);
+      });
+      conteneur.append(titre, grille);
+    });
+  </script>
+</body>
+</html>
